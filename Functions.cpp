@@ -27,27 +27,25 @@ std::vector<std::unique_ptr<Smalltalk>> getPeople(int numBrit,
 
 	for (int i = 0; i < numBrit; ++i){
 		std::unique_ptr<Smalltalk> a(new Smalltalk_Brit(i));
-		smalltalkPointers.push_back(a);
+		smalltalkPointers.push_back(std::move(a));
 	}
 	for (int i = 0; i < numAmerican; ++i){
 			std::unique_ptr<Smalltalk> a(new Smalltalk_American(i));
-			smalltalkPointers.push_back(a);
+			smalltalkPointers.push_back(std::move(a));
 		}
 	for (int i = 0; i < numbAmericanDonutEnthusiest; ++i){
 			std::unique_ptr<Smalltalk> a(new ST_American_DonutEnthusiest(i));
-			smalltalkPointers.push_back(a);
+			smalltalkPointers.push_back(std::move(a));
 		}
-	for (int i = 0; i < numbAmericanDonutEnthusiest; ++i){
-				std::unique_ptr<Smalltalk> a(new ST_American_DonutEnthusiest(i));
-				smalltalkPointers.push_back(a);
-			}
-	for (int i = 0; numWatches > 0 && i > smalltalkPointers.size(); ++i){
-					std::unique_ptr<Smalltalk> a(new ST_American_DonutEnthusiest(i));
-					smalltalkPointers.push_back(a);
-					if (smalltalkPointers[i]->giveWatch){
+
+	for (unsigned int i = 0; numWatches > 0 && i < smalltalkPointers.size(); ++i){
+					std::unique_ptr<Watch> a(new Watch());
+
+					if (smalltalkPointers[i]->giveWatch(a)){
 						numWatches--;
 					}
 				}
+
 	//create a vector to hold SmallTalk unique pointers
 
 		//add brits to vector
